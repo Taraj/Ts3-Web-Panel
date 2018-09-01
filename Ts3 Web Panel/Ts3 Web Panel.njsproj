@@ -33,24 +33,66 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="authorization\passport.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="authorization\strategies\facebook.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="authorization\strategies\google.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="authorization\strategies\local.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="config.js">
       <Publish>True</Publish>
     </Compile>
-    <Compile Include="model\modelController.js">
+    <Compile Include="models\guestMessage.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="model\models\user.js">
+    <Compile Include="models\user.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="model\sequelizeConnection.js">
+    <Compile Include="repositories\user.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="model\models\session.js">
+    <Compile Include="sequelize.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="models\session.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="router.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\authorization.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\home.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="services\permission.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="views\authorization\login.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\authorization\logout.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\authorization\register.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\authorization\alreadylogged.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\error.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\home.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\layout.pug">
@@ -58,15 +100,19 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="model\" />
+    <Folder Include="authorization\strategies\" />
     <Folder Include="authorization\" />
-    <Folder Include="model\models\" />
+    <Folder Include="models\" />
+    <Folder Include="repositories\" />
+    <Folder Include="services\" />
     <Folder Include="public\" />
     <Folder Include="public\javascript\" />
     <Folder Include="public\image\" />
     <Folder Include="public\font\" />
     <Folder Include="public\stylesheet\" />
+    <Folder Include="routes\" />
     <Folder Include="views\" />
+    <Folder Include="views\authorization\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

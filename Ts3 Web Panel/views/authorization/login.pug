@@ -1,0 +1,14 @@
+﻿doctype html
+html
+  head
+    title Login
+  body
+    pre #{error}
+    form(method="POST" action="/authorization/login/local")
+        |Login:
+        input(type="text" name="username")
+        br
+        |Password:
+        input(type="password" name="password")
+        br
+        input(type="submit" value="Zaloguj")

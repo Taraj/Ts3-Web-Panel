@@ -11,7 +11,7 @@ const passport = require('passport');
 const lessMiddleware = require('less-middleware');
 
 
-const model = require('./model/modelController');
+const model = require('./sequelize');
 
 const app = express();
 
@@ -25,11 +25,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'qweefefw.kefhbguktwvfiljegihlwiyrgbfrgwergwbqerwer' }));
+app.use(session({
+    secret: 'qweefefw.kefhbguktwvfiljegihlwiyrgbfrgwergwbqerwer',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+require('./router')(app);
+require('./authorization/passport')(passport);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -59,7 +65,8 @@ app.use(function (err, req, res, next) {
 
 app.set('port', process.env.PORT || 80);
 
-model.sync().then(() => {
+
+model.sequelize.sync().then(() => {
     const server = app.listen(app.get('port'), function () {
         debug('Express server listening on port ' + server.address().port);
     });
