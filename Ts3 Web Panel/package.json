@@ -1,0 +1,9 @@
+{
+  "name": "ts3-web-panel",
+  "version": "0.0.0",
+  "description": "Ts3 Web Panel",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  }
+}
