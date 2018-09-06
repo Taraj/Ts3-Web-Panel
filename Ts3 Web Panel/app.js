@@ -9,19 +9,18 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const lessMiddleware = require('less-middleware');
-
+const favicon = require('serve-favicon');
 
 const model = require('./sequelize');
 
 const app = express();
-
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(lessMiddleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));

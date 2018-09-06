@@ -1,2 +1,59 @@
-﻿block content
-    div Start
+﻿doctype html
+html
+    head
+        include includes/head.pug
+        link(rel="stylesheet" type="text/css" href="/stylesheet/home.css")
+        script(src="/javascript/home.js")
+    body
+        include includes/body.pug
+        section.intro#intro
+            container
+                header Tarajki
+                p.long Publiczby, darmowy serwer TeamSpeak 3
+                p.short Publiczby serwer TeamSpeak 3
+        section.administration
+            div.anchor#administration
+            header Administracja
+            ul
+                each admin in admins
+                    li
+                        img(src="/image/"+admin.avatar)
+                        div.container
+                            if admin.isOnline
+                                div.status.online online
+                            else
+                                div.status.offline  offline
+                            h3= admin.nickname
+                            p= admin.role
+        section.pause
+        section.stats
+            div.anchor#stats
+            header Statystyki
+            ul
+                li
+                     div.image.door
+                     div.container
+                        div.value= stats.visitsPerDay
+                        div.name Wizyt dziennie
+                li  
+                     div.image.clock
+                     div.container
+                        div.value= stats.totalConnectionsTime
+                        div.name.long Godzin spędzonych na serwerze
+                li
+                     div.image.people
+                     div.container
+                        div.value= stats.uniqueUsers
+                        div.name.long Unikalnych użytkowników
+        section.contact
+            div.anchor#contact
+            header Kontakt
+            div.container
+                form#form
+                    div.fuck
+                        input(type="text" placeholder="Nick")#formNickname
+                        input(type="text" placeholder="Temat")#formSubject
+                    textarea(placeholder="Wiadomość")#formMessage
+                    button Wyślij
+        footer
+    

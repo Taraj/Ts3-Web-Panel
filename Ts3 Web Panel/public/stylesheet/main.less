@@ -1,0 +1,147 @@
+﻿body {
+    background-color: #eae9ea;
+    margin: 0px;
+    padding: 0px;
+
+    .alert {
+        top: 0px;
+        position: fixed;
+        width: 100%;
+        z-index: 9999999999;
+
+        div {
+            cursor: pointer;
+            width: 100vw;
+            top: 0px;
+            text-align: center;
+            position: absolute;
+            color: white;
+
+            header {
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .exit {
+                font-size: 15px;
+            }
+        }
+
+        .succes {
+            background-color: green;
+        }
+
+        .error {
+            background-color: #ef2110;
+        }
+
+        .warning {
+            background-color: #f1b30a;
+        }
+    }
+
+    .menu-desktop {
+        z-index: 100;
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        font-size: 20px;
+        transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        overflow: hidden;
+
+        @media only screen and (max-width: 600px) {
+            display: none;
+        }
+
+        .container {
+            height: 60px;
+            float: right;
+
+            a {
+                display: block;
+                padding: 20px;
+                float: left;
+                text-decoration: none;
+                color: white;
+                margin-right: 10px;
+            }
+
+            .important {
+                color: red;
+            }
+        }
+    }
+
+    .menu-desktop-background-visible {
+        background-color: white;
+        box-shadow: 0px 1px 5px #888888;
+
+        .container {
+            a {
+                color: black;
+            }
+        }
+    }
+
+    .menu-mobile {
+        display: none;
+
+        .button {
+            position: fixed;
+            color: white;
+            right: 3vmin;
+            top: 3vmin;
+            font-size: 70px;
+            text-shadow: 0px 0px 5px black;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        @media only screen and (max-width: 600px) {
+            display: block;
+        }
+
+        .container {
+            display: none;
+            padding: 0px;
+            margin: 0px;
+            position: fixed;
+            z-index: 100;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            overflow: scroll;
+
+            a {
+                box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.44);
+                width: 100vw;
+                text-align: center;
+                transition: color 0.5s ease;
+                display: block;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                margin-top: 15px;
+                float: left;
+                text-decoration: none;
+                color: black;
+            }
+
+            .important {
+                color: red;
+            }
+        }
+
+        .menu-mobile-visible {
+            display: block;
+        }
+    }
+}
+
+.menu-mobile-visible-body {
+    overflow: hidden;
+}

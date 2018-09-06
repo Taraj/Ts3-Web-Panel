@@ -48,10 +48,19 @@
     <Compile Include="config.js">
       <Publish>True</Publish>
     </Compile>
+    <Compile Include="models\admin.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="models\guestMessage.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="models\user.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="public\javascript\home.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="public\javascript\main.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="repositories\user.js">
@@ -76,6 +85,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />
+    <Content Include="public\image\avatarBlue.svg" />
+    <Content Include="public\image\avatarGreen.svg" />
+    <Content Include="public\image\avatarRed.svg" />
+    <Content Include="public\image\clock.svg" />
+    <Content Include="public\image\door.svg" />
+    <Content Include="public\image\people.svg" />
+    <Content Include="public\image\theme2.jpg" />
+    <Content Include="public\image\theme.jpg" />
+    <Content Include="public\favicon.png" />
+    <Content Include="public\favicon.ico" />
+    <Content Include="public\stylesheet\home.less">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheet\main.less">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
     <Content Include="views\authorization\login.pug">
       <SubType>Code</SubType>
@@ -92,10 +117,16 @@
     <Content Include="views\error.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\includes\head.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\home.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\layout.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\includes\body.pug">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
@@ -113,6 +144,7 @@
     <Folder Include="routes\" />
     <Folder Include="views\" />
     <Folder Include="views\authorization\" />
+    <Folder Include="views\includes\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
