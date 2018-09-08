@@ -28,6 +28,8 @@ fs.readdirSync(path.join(__dirname, 'models')).forEach(file => {
     models[model.name] = model;
 });
 
+
+
 Object.keys(models).forEach(modelName => {
     if ('associate' in models[modelName]) {
         models[modelName].associate(models);

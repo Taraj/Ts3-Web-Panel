@@ -1,5 +1,5 @@
 ﻿'use strict';
-const User = require('../repositories/user');
+const User = require('../sequelize').models.user;
 const localStrategy = require('./strategies/local');
 
 
@@ -12,7 +12,7 @@ module.exports = function (passport) {
     passport.deserializeUser(function (id, done) {
         User.findById(id).then(user => {
             if (user) {
-                done(null, user.dataValues);
+                done(null, user);
             } else {
                 done(new Error("User doesn't exist"));
             }

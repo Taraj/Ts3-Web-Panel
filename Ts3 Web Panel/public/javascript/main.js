@@ -1,4 +1,6 @@
-﻿function spawnAlert(type, title, message) {
+﻿let initialAlerts = [];
+
+function spawnAlert(type, title, message) {
     let alertContainer = document.getElementById("alert");
     let alert = document.createElement("div");
     let header = document.createElement("header");
@@ -25,44 +27,19 @@
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    let menu = document.getElementById("menu");
 
-    if (window.pageYOffset) {
-        menu.classList.add("menu-desktop-background-visible");
-    } else {
-        menu.classList.remove("menu-desktop-background-visible");
-    }
-
-
-    document.addEventListener("scroll", () => {
-        if (window.pageYOffset) {
-            menu.classList.add("menu-desktop-background-visible");
-        } else {
-            menu.classList.remove("menu-desktop-background-visible");
-        }
+    initialAlerts.forEach(alert => {
+        spawnAlert(alert.type, alert.title, alert.message);
     });
-    /*
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
 
-            });
-        });
-    });
-    */
+
     document.getElementById("menuMobileButton").addEventListener("click", () => {
         document.getElementById("menuMobileContainer").classList.toggle("menu-mobile-visible");
         document.body.classList.toggle("menu-mobile-visible-body");
     });
+    document.getElementById("menuMobileContainer").addEventListener("click", () => {
+        document.getElementById("menuMobileContainer").classList.toggle("menu-mobile-visible");
+        document.body.classList.toggle("menu-mobile-visible-body");
+    });
 
-});
-
-$(document).on('click', 'a[href^="#"]', function (event) {
-    event.preventDefault();
-
-    $('html, body').animate({
-        scrollTop: $($.attr(this, 'href')).offset().top
-    }, 500);
 });

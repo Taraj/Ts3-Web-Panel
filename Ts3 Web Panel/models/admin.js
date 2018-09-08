@@ -1,16 +1,16 @@
 ﻿"use strict";
 module.exports = function (sequelize, DataTypes) {
-    let admin = sequelize.define('admin', {
+    let Admin = sequelize.define('admin', {
 
         nickname: DataTypes.STRING,
 
-        role: DataTypes.STRING,
+        role: DataTypes.STRING, 
 
-        uid: DataTypes.STRING,
-
-        avatar: DataTypes.TEXT
+        avatar: DataTypes.STRING
 
     });
-
-    return admin;
+    Admin.associate = function (models) {
+        Admin.hasMany(models.ts3User);
+    };
+    return Admin;
 };

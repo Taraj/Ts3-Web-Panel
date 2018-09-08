@@ -1,66 +1,98 @@
 ﻿'use strict';
 const router = require('express').Router();
-const admin = require('../sequelize').models.admin;
-const guestMessage = require('../sequelize').models.guestMessage;
+const moment = require('moment');
 
-let stats = {
-    uniqueUsers: 56554,
-    totalConnectionsTime: 15255,
-    visitsPerDay: 5542
-};
 
-function isOnline(uid) {
+const Admin = require('../sequelize').models.admin;
+const GuestMessage = require('../sequelize').models.guestMessage;
+const Ts3User = require('../sequelize').models.ts3User;
+
+
+function getAdminsList() {
     return new Promise(function (resolve, reject) {
-        setTimeout(resolve, 1, true);
-    });
-}
-
-
-
-function adminsList() {
-    return new Promise(function (resolve, rejest) {
-        admin.findAll().then(admins => {
-            let promises = admins.map(val => {
-                return new Promise(function (resolve, rejest) {
-                    isOnline(val.dataValues.uid).then(online => {
+        Admin.findAll().then(admins => {
+            Promise.all(admins.map(admin => {
+                return new Promise(function (resolve, reject) {
+                    admin.getTs3Users({
+                        where: {
+                            online: true
+                        }
+                    }).then(ts3Users => {
                         resolve({
-                            nickname: val.dataValues.nickname,
-                            isOnline: online,
-                            role: val.dataValues.role,
-                            avatar: val.dataValues.avatar
+                            nickname: admin.nickname,
+                            isOnline: ts3Users.length ? true : false,
+                            role: admin.role,
+                            avatar: admin.avatar
                         });
                     }).catch(err => {
-                        rejest(err);
+                        reject(err);
                     });
                 });
-            });
-            Promise.all(promises).then(val => {
-                resolve(val);
+            })).then(adminsList => {
+                resolve(adminsList);
             }).catch(err => {
-                rejest(err);
+                reject(err);
             });
         }).catch(err => {
-            rejest(err);
+            reject(err);
         });
     });
 }
 
+function getServerStats() {
+    return new Promise(function (resolve, reject) {
+        Ts3User.count().then(uniqueUsers => {
+            Ts3User.sum('totalConnectionsTime').then(totalConnectionsTime => {
+                Ts3User.min('firstConnection').then(firstVisit => {
+                    resolve({
+                        uniqueUsers: uniqueUsers,
+                        totalConnectionsTime: totalConnectionsTime,
+                        visitsPerDay: Math.ceil(uniqueUsers / moment().diff(firstVisit, 'days'))
+                    });
+                }).catch(err => {
+                    reject(err);
+                });
+            }).catch(err => {
+                reject(err);
+            });
+        }).catch(err => {
+            reject(err);
+        }); 
+    });
+}
 
 router.get('/', function (req, res) {
-    adminsList().then(admins => {
-        res.render('home', { admins: admins, stats: stats });
+    getAdminsList().then(adminsList => {
+        getServerStats().then(serverStats => {
+            res.render('home', { admins: adminsList, stats: serverStats });
+        }).catch(err => {
+            res.send(err);
+        });    
     }).catch(err => {
         res.send(err);
     });
 });
 
+
 router.post('/message', function (req, res) {
-    console.log(req.body);
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-        succes: false,
-        error: "kij z tym"
-    }));
+    GuestMessage.create({
+        nickname: req.body.nickname,
+        subject: req.body.subject,
+        ip: req.ip,
+        message: req.body.message,
+        date: new Date()
+    }).then(() => {
+        res.send(JSON.stringify({
+            succes: true,
+            error: null
+        }));
+    }).catch(err => {
+        res.send(JSON.stringify({
+            succes: false,
+            error: err
+        }));
+    });
 });
 
 

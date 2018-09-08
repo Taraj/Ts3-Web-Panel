@@ -1,14 +1,26 @@
 ﻿doctype html
 html
-  head
-    title Login
-  body
-    pre #{error}
-    form(method="POST" action="/authorization/login/local")
-        |Login:
-        input(type="text" name="username")
-        br
-        |Password:
-        input(type="password" name="password")
-        br
-        input(type="submit" value="Zaloguj")
+    head
+        include ../includes/head.pug
+        link(rel="stylesheet" type="text/css" href="/stylesheet/authorization.css")
+        if (error != "")
+            script.
+                initialAlerts.push({
+                    type:"error",
+                    title:"Błąd!!!",
+                    message:"#{error}"
+                });
+    body
+        include ../includes/body.pug
+        section.authorization-container
+            header Logowanie
+            form(method="POST" action="/authorization/login/local")
+                input(type="text" name="username" placeholder="Login/Email")
+                input(type="password" name="password" placeholder="Hasło")
+                button Zaloguj
+            a(href="/authorization/login/google")
+                button.google Google
+            a(href="/authorization/login/facebook")
+                button.facebook Facebook
+            p Nie masz jeszcze konta? 
+                a(href="/authorization/register") Zarejestruj

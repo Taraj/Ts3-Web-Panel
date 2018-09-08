@@ -25,4 +25,25 @@
             spawnAlert("error", "Błąd!!!", err);
         });
     });
+
+    let menu = document.getElementById("menu");
+    if (window.pageYOffset) {
+        menu.classList.remove("menu-desktop-background-invisible");
+    } else {
+        menu.classList.add("menu-desktop-background-invisible");
+    }
+    document.addEventListener("scroll", () => {
+        if (window.pageYOffset) {
+            menu.classList.remove("menu-desktop-background-invisible");
+        } else {
+            menu.classList.add("menu-desktop-background-invisible");
+        }
+    });
+});
+
+$(document).on('click', 'a[href^="/#"]', function (event) {
+    event.preventDefault();
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'href').substring(1)).offset().top
+    }, 500);
 });

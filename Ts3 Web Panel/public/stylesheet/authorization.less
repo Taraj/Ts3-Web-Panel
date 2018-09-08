@@ -1,0 +1,95 @@
+﻿body {
+    .authorization-container {
+        background-color: white;
+        width: 500px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-bottom: 50px;
+        text-align: center;
+        margin-top: 10vmax;
+        border-top: 5px solid #4385f5;
+
+
+        @media only screen and (max-width: 600px) {
+            width: 90vw;
+        }
+
+        header {
+            text-align: center;
+            font-family: 'Paytone One', sans-serif;
+            font-size: 60px;
+
+            @media only screen and (max-width: 600px) {
+                font-size: 13vw;
+            }
+        }
+
+        input {
+            border: 2px solid rgb(193, 193, 193);
+            width: 80%;
+            font-size: 30px;
+            transition: all 0.5s ease;
+            border-radius: 10px;
+            margin-top: 20px;
+            padding: 1%;
+            padding-left:2%;
+            padding-right:2%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+
+            @media only screen and (max-width: 600px) {
+                font-size: 20px;
+                padding:2%;
+            }
+
+            &:focus {
+                border: 2px solid rgb(67, 133, 245);
+            }
+        }
+
+
+
+        button {
+            color: white;
+            background-color: #34a853;
+            border: none;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 20px;
+            width: 84%;
+            padding: 10px;
+            font-size: 40px;
+            font-family: 'Paytone One', sans-serif;
+            transition: box-shadow 0.2s ease;
+            box-shadow: 1px 1px 5px #888888;
+            cursor: pointer;
+
+            @media only screen and (max-width: 600px) {
+                font-size: 30px;
+                line-height: 100%;
+            }
+
+            &:hover {
+                box-shadow: 3px 3px 10px #888888;
+            }
+        }
+
+        a {
+            text-decoration: none;
+
+            button {
+                margin-top: 2px;
+            }
+
+            .google {
+                background-color: #ea4335;
+            }
+
+            .facebook {
+                background-color: #4267b2;
+            }
+        }
+    }
+}

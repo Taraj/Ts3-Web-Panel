@@ -1,17 +1,23 @@
 ﻿doctype html
 html
-  head
-    title Register
-  body
-    pre #{error}
-    form(method="POST" action="/authorization/register/local")
-        |Login:
-        input(type="text" name="username")
-        br
-        |Email:
-        input(type="text" name="email")
-        br
-        |Password:
-        input(type="password" name="password")
-        br
-        input(type="submit" value="Zarejestruj")
+    head
+        include ../includes/head.pug
+        link(rel="stylesheet" type="text/css" href="/stylesheet/authorization.css")
+        if (error != "")
+            script.
+                initialAlerts.push({
+                    type:"error",
+                    title:"Błąd!!!",
+                    message:"#{error}"
+                });
+    body
+        include ../includes/body.pug
+        section.authorization-container
+            header Rejestracja
+            form(method="POST" action="/authorization/register/local")
+                input(type="text" name="username" placeholder="Login")
+                input(type="text" name="email" placeholder="Email")
+                input(type="password" name="password" placeholder="Hasło")
+                button Zarejestruj
+            p Masz już konto? 
+                a(href="/authorization/login") Zaloguj

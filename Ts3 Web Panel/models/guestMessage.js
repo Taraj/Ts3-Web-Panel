@@ -1,6 +1,6 @@
 ﻿"use strict";
 module.exports = function (sequelize, DataTypes) {
-    let guestMessage = sequelize.define('guestMessage', {
+    let GuestMessage = sequelize.define('guestMessage', {
 
         nickname: DataTypes.STRING,
 
@@ -14,5 +14,5 @@ module.exports = function (sequelize, DataTypes) {
 
     });
 
-    return guestMessage;
+    return GuestMessage;
 };

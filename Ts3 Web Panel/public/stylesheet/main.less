@@ -53,6 +53,9 @@
         font-size: 20px;
         transition: background-color 0.5s ease, box-shadow 0.5s ease;
         overflow: hidden;
+        background-color: white;
+        box-shadow: 0px 1px 5px #888888;
+
 
         @media only screen and (max-width: 600px) {
             display: none;
@@ -69,6 +72,7 @@
                 text-decoration: none;
                 color: white;
                 margin-right: 10px;
+                color: black;
             }
 
             .important {
@@ -77,13 +81,13 @@
         }
     }
 
-    .menu-desktop-background-visible {
-        background-color: white;
-        box-shadow: 0px 1px 5px #888888;
+    .menu-desktop-background-invisible {
+        background-color: rgba(255, 255, 255, 0.00);
+        box-shadow: none;
 
         .container {
             a {
-                color: black;
+                color: white;
             }
         }
     }
@@ -116,7 +120,7 @@
             height: 100vh;
             background-color: white;
             overflow: scroll;
-
+            top:0px;
             a {
                 box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.44);
                 width: 100vw;
