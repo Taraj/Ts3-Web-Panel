@@ -2,42 +2,73 @@
 const passport = require('passport');
 const router = require('express').Router();
 const permission = require('../services/permission');
+const flashAlerts = require('../services/flashAlerts');
+
 
 router.get('/', function (req, res) {
     res.redirect('/authorization/login');
 });
 
 router.get('/login', permission.isLoggedOut, function (req, res) {
-    res.render('authorization/login', { error: req.flash('error') });
+    let alerts = flashAlerts(req.flash());
+    if (alerts.length) {
+        res.render('login', {
+            alerts: alerts 
+        });
+    } else {
+        res.render('login');
+    }
 });
 
 router.get('/register', permission.isLoggedOut, function (req, res) {
-    res.render('authorization/register', { error: req.flash('error')});
+    let alerts = flashAlerts(req.flash());
+    if (alerts.length) {
+        res.render('register', {
+            alerts: alerts
+        });
+    } else {
+        res.render('register');
+    }
 });
 
 router.get('/logout', permission.isLoggedIn, function (req, res) {
     req.logout();
-    res.render('authorization/logout');
+    req.flash('success', "Wylogowano pomyślnie.");
+    res.redirect('/authorization/login');
 });
 
-router.get('/alreadylogged', permission.isLoggedIn, function (req, res) {
-    res.render('authorization/alreadylogged');
-});
 
 router.post('/login/local', permission.isLoggedOut, passport.authenticate('login-local', {
-    successRedirect: '/',
+    successRedirect: '/panel',
     failureRedirect: '/authorization/login',
     failureFlash: true,
-    badRequestMessage: 'Wszystkie pola muszą być wypełnione.' 
-
+    badRequestMessage: 'Wszystkie pola muszą być wypełnione.'
 }));
 router.post('/register/local', permission.isLoggedOut, passport.authenticate('register-local', {
-    successRedirect: '/',
+    successRedirect: '/panel',
     failureRedirect: '/authorization/register',
     failureFlash: true,
-    badRequestMessage: 'Wszystkie pola muszą być wypełnione.' 
+    badRequestMessage: 'Wszystkie pola muszą być wypełnione.'
 }));
 
+router.get('/login/google', permission.isLoggedOut, passport.authenticate('login-google', {
+    scope: ['profile']
+}));
 
+router.get('/login/google/callback', passport.authenticate('login-google', {
+    successRedirect: '/panel',
+    failureRedirect: '/authorization/login',
+    failureFlash: true
+}));
+
+router.get('/login/facebook', passport.authenticate('login-facebook', {
+    scope: 'public_profile'
+}));
+
+router.get('/login/facebook/callback', passport.authenticate('login-facebook', {
+    successRedirect: '/panel',
+    failureRedirect: '/authorization/login',
+    failureFlash: true
+}));
 
 module.exports = router;

@@ -1,7 +1,8 @@
 ﻿'use strict';
 const User = require('../sequelize').models.user;
 const localStrategy = require('./strategies/local');
-
+const googleStrategy = require('./strategies/google');
+const facebookStrategy = require('./strategies/facebook');
 
 module.exports = function (passport) {
 
@@ -24,4 +25,10 @@ module.exports = function (passport) {
 
     passport.use('register-local', localStrategy.register);
     passport.use('login-local', localStrategy.login);
+
+    passport.use('connect-google', googleStrategy.connect);
+    passport.use('login-google', googleStrategy.login);
+
+    passport.use('connect-facebook', facebookStrategy.connect);
+    passport.use('login-facebook', facebookStrategy.login);
 };

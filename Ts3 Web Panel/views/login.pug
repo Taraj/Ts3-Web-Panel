@@ -1,17 +1,10 @@
 ﻿doctype html
 html
     head
-        include ../includes/head.pug
+        include includes/head.pug
         link(rel="stylesheet" type="text/css" href="/stylesheet/authorization.css")
-        if (error != "")
-            script.
-                initialAlerts.push({
-                    type:"error",
-                    title:"Błąd!!!",
-                    message:"#{error}"
-                });
     body
-        include ../includes/body.pug
+        include includes/body.pug
         section.authorization-container
             header Logowanie
             form(method="POST" action="/authorization/login/local")

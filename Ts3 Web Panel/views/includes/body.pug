@@ -5,7 +5,11 @@ nav#menu.menu-desktop
         a(href="/#administration") Administracja
         a(href="/#stats") Statystyki
         a(href="/#contact") Kontakt
-        a(href="/authorization/login").important Zaloguj
+        if authorizated
+            a(href="/panel").important Panel
+            a(href="/authorization/logout") Wyloguj
+        else
+            a(href="/authorization/login").important Zaloguj
 nav.menu-mobile
     i.fas.fa-bars.button#menuMobileButton
     div.container#menuMobileContainer
@@ -13,4 +17,8 @@ nav.menu-mobile
         a(href="/#administration") Administracja
         a(href="/#stats") Statystyki
         a(href="/#contact") Kontakt
-        a(href="/authorization/login").important Zaloguj
+        if authorizated
+            a(href="/panel").important Panel
+            a(href="/authorization/logout") Wyloguj
+        else
+            a(href="/authorization/login").important Zaloguj

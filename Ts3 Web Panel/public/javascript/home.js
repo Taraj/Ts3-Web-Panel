@@ -16,13 +16,13 @@
             return res.json();
         }).then(res => {
             if (res.succes) {
-                spawnAlert("succes", "Sukces!!!", "Twoja Wiadomośc została wysłana. Dziękujemy za kontakt z nami.");
+                spawnAlert("success",  "Twoja Wiadomośc została wysłana. Dziękujemy za kontakt z nami.");
             } else {
-                spawnAlert("error", "Błąd!!!", res.error);
+                spawnAlert("error", res.error);
             }
 
         }).catch(err => {
-            spawnAlert("error", "Błąd!!!", err);
+            spawnAlert("error", err);
         });
     });
 

@@ -33,6 +33,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(function (req, res, next) {
+    res.locals.authorizated = req.isAuthenticated();
+    next();
+});
+
 require('./router')(app);
 require('./authorization/passport')(passport);
 
@@ -53,7 +58,6 @@ if (app.get('env') === 'development') {
     });
 }
 
-
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -63,7 +67,6 @@ app.use(function (err, req, res, next) {
 });
 
 app.set('port', process.env.PORT || 80);
-
 
 model.sequelize.sync().then(() => {
     const server = app.listen(app.get('port'), function () {

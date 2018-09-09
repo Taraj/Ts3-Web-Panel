@@ -1,6 +1,6 @@
 ﻿let initialAlerts = [];
 
-function spawnAlert(type, title, message) {
+function spawnAlert(type, message) {
     let alertContainer = document.getElementById("alert");
     let alert = document.createElement("div");
     let header = document.createElement("header");
@@ -8,7 +8,15 @@ function spawnAlert(type, title, message) {
     let exit = document.createElement("p");
 
     exit.innerText = "{{Kliknij aby zamknąć}}";
-    header.innerText = title;
+
+    if (type === "success") {
+        header.innerText = "Sukces!!!";
+    } else if (type === "error") {
+        header.innerText = "Błąd!!!";
+    } else if (type === "warning") {
+        header.innerText = "Uwaga!!!";
+    }
+
     p.innerText = message;
 
 
@@ -29,7 +37,7 @@ function spawnAlert(type, title, message) {
 document.addEventListener("DOMContentLoaded", () => {
 
     initialAlerts.forEach(alert => {
-        spawnAlert(alert.type, alert.title, alert.message);
+        spawnAlert(alert.type, alert.message);
     });
 
 
