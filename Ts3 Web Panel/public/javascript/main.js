@@ -41,13 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    document.getElementById("menuMobileButton").addEventListener("click", () => {
-        document.getElementById("menuMobileContainer").classList.toggle("menu-mobile-visible");
-        document.body.classList.toggle("menu-mobile-visible-body");
+    document.getElementById("menuButton").addEventListener("click", () => {
+        document.body.classList.toggle("show-menu-main");
     });
+
     document.getElementById("menuMobileContainer").addEventListener("click", () => {
-        document.getElementById("menuMobileContainer").classList.toggle("menu-mobile-visible");
-        document.body.classList.toggle("menu-mobile-visible-body");
+        document.body.classList.toggle("show-menu-main");
     });
+
+    document.getElementById("menuRightButton").addEventListener("click", () => {
+        document.getElementById("menuRight").classList.toggle("hide");
+    });
+
+
 
 });

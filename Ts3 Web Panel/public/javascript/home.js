@@ -26,17 +26,17 @@
         });
     });
 
-    let menu = document.getElementById("menu");
+    let menu = document.getElementById("menuMain");
     if (window.pageYOffset) {
-        menu.classList.remove("menu-desktop-background-invisible");
+        menu.classList.remove("hide-background");
     } else {
-        menu.classList.add("menu-desktop-background-invisible");
+        menu.classList.add("hide-background");
     }
     document.addEventListener("scroll", () => {
         if (window.pageYOffset) {
-            menu.classList.remove("menu-desktop-background-invisible");
+            menu.classList.remove("hide-background");
         } else {
-            menu.classList.add("menu-desktop-background-invisible");
+            menu.classList.add("hide-background");
         }
     });
 });

@@ -10,6 +10,7 @@ const session = require('express-session');
 const passport = require('passport');
 const lessMiddleware = require('less-middleware');
 const favicon = require('serve-favicon');
+const config = require('./config');
 
 const model = require('./sequelize');
 
@@ -32,6 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+require('./services/flashAlerts')(app);
 
 app.use(function (req, res, next) {
     res.locals.authorizated = req.isAuthenticated();
@@ -40,6 +42,7 @@ app.use(function (req, res, next) {
 
 require('./router')(app);
 require('./authorization/passport')(passport);
+
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -66,7 +69,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.set('port', process.env.PORT || 80);
+app.set('port', config.server.port);
 
 model.sequelize.sync().then(() => {
     const server = app.listen(app.get('port'), function () {

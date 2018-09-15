@@ -2,6 +2,16 @@
 html
     head
         include includes/head.pug
+        link(rel="stylesheet" type="text/css" href="/stylesheet/panel.css")
     body
         include includes/body.pug
-        h1 Konto
+        main
+            nav.menu-right#menuRight
+                div.button#menuRightButton Menu
+                a(href="/panel") Start
+                a(href="/panel/account") Konto
+                a(href="/panel") Rangi
+                a(href="/panel") Kanał
+                a(href="/panel") Zgłoszenia
+            div.container
+                h1 W sumie to "xD"

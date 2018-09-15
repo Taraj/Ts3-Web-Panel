@@ -1,4 +1,58 @@
-﻿body {
+﻿@change-menu-width: 800px;
+
+a {
+    text-decoration: none;
+}
+
+button {
+    background-color: #34a853;
+    color: white;
+    border: none;
+    transition: box-shadow 0.2s ease;
+    box-shadow: 1px 1px 5px #888888;
+    cursor: pointer;
+    font-family: 'Paytone One', sans-serif;
+
+    &:hover {
+        box-shadow: 3px 3px 10px #888888;
+    }
+
+    &.danger {
+        background-color: #bb0c0c;
+    }
+}
+
+input {
+    border: 2px solid #c1c1c1;
+    transition: border 0.5s ease;
+    border-radius: 10px;
+
+    &:focus {
+        border: 2px solid #4385f5;
+    }
+}
+select {
+    border: 2px solid #c1c1c1;
+    transition: border 0.5s ease;
+    border-radius: 10px;
+    user-select:none;
+    &:focus {
+        border: 2px solid #4385f5;
+    }
+}
+
+textarea {
+    border: 2px solid #c1c1c1;
+    transition: border 0.5s ease;
+    border-radius: 10px;
+    resize: none;
+
+    &:focus {
+        border: 2px solid #4385f5;
+    }
+}
+
+body {
     background-color: #eae9ea;
     margin: 0px;
     padding: 0px;
@@ -7,7 +61,7 @@
         top: 0px;
         position: fixed;
         width: 100%;
-        z-index: 9999999999;
+        z-index: 200;
 
         div {
             cursor: pointer;
@@ -30,123 +84,120 @@
             .exit {
                 font-size: 15px;
             }
-        }
 
-        .success {
-            background-color: green;
-        }
+            &.success {
+                background-color: #1ec312;
+            }
 
-        .error {
-            background-color: #ef2110;
-        }
+            &.error {
+                background-color: #bb0c0c;
+            }
 
-        .warning {
-            background-color: #f1b30a;
+            &.warning {
+                background-color: #e9c415;
+            }
         }
     }
 
-    .menu-desktop {
+    .menu-main {
         z-index: 100;
         position: fixed;
         top: 0px;
+        height: 60px;
         width: 100%;
         font-size: 20px;
-        transition: background-color 0.5s ease, box-shadow 0.5s ease;
         overflow: hidden;
         background-color: white;
         box-shadow: 0px 1px 5px #888888;
+        transition: background-color 0.5s ease, box-shadow 0.5s ease;
 
+        header {
+            grid-row: 1;
+            grid-column: 1;
+            color: red;
+            text-align: center;
+            font-family: 'Rammetto One', cursive;
+            line-height: 60px;
+            font-size: 36px;
+            display: none;
+        }
 
-        @media only screen and (max-width: 600px) {
+        .switch {
+            grid-row: 1;
+            grid-column: 2;
+            text-align: center;
+            font-size: 60px;
+            color: white;
+            text-shadow: 0px 0px 5px black;
+            cursor: pointer;
             display: none;
         }
 
         .container {
-            height: 60px;
             float: right;
 
             a {
                 display: block;
                 padding: 20px;
+                color: inherit;
                 float: left;
-                text-decoration: none;
-                color: white;
-                margin-right: 10px;
-                color: black;
-            }
 
-            .important {
-                color: red;
+                &.important {
+                    color: red;
+                }
             }
         }
-    }
 
-    .menu-desktop-background-invisible {
-        background-color: rgba(255, 255, 255, 0.00);
-        box-shadow: none;
+        @media only screen and (max-width: @change-menu-width) {
+            transition:none;
+            display: grid;
+            grid-template-columns: auto 65px;
+            grid-template-rows: 60px;
 
-        .container {
-            a {
-                color: white;
-            }
-        }
-    }
-
-    .menu-mobile {
-        display: none;
-
-        .button {
-            position: fixed;
-            color: white;
-            right: 3vmin;
-            top: 3vmin;
-            font-size: 70px;
-            text-shadow: 0px 0px 5px black;
-            cursor: pointer;
-            z-index: 10000;
-        }
-
-        @media only screen and (max-width: 600px) {
-            display: block;
-        }
-
-        .container {
-            display: none;
-            padding: 0px;
-            margin: 0px;
-            position: fixed;
-            z-index: 100;
-            width: 100vw;
-            height: 100vh;
-            background-color: white;
-            overflow: scroll;
-            top: 0px;
-
-            a {
-                box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.44);
-                width: 100vw;
-                text-align: center;
-                transition: color 0.5s ease;
+            header {
                 display: block;
-                padding-top: 15px;
-                padding-bottom: 15px;
-                margin-top: 15px;
-                float: left;
-                text-decoration: none;
-                color: black;
             }
 
-            .important {
-                color: red;
+            .switch {
+                display: block;
+            }
+
+            .container {
+                float: none;
+                grid-row: 2;
+                grid-column: ~"1 / 3";
+                overflow-y: auto;
+
+                a {
+                    float: none;
+                }
             }
         }
 
-        .menu-mobile-visible {
-            display: block;
+        &.hide-background {
+            background-color: unset;
+            box-shadow: unset;
+            color: white;
+
+            header {
+                display: none;
+            }
         }
     }
-}
 
-.menu-mobile-visible-body {
-    overflow: hidden;
+    &.show-menu-main {
+        @media only screen and (max-width: @change-menu-width) {
+            overflow: hidden;
+
+            .menu-main {
+                background-color: white;
+                color: black;
+                height: 100vh;
+
+                header {
+                    display: block;
+                }
+            }
+        }
+    }
 }

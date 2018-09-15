@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-module.exports = function (flash) {
+function flashAlerts(flash) {
     let alertsList = [];
     if (flash.error)
         flash.error.forEach(message => {
@@ -25,3 +25,14 @@ module.exports = function (flash) {
         });
     return alertsList;
 }
+
+
+module.exports = function (app) {
+    app.use(function (req, res, next) {
+        let alerts = flashAlerts(req.flash());
+        if (alerts.length) {
+            res.locals.alerts = alerts;
+        }
+        next();
+    });
+};

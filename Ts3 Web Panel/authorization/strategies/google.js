@@ -1,18 +1,19 @@
 ﻿'use strict';
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const config = require('../../config').passport.google;
+const config = require('../../config');
 
 
 const User = require('../../sequelize').models.user;
 const Session = require('../../sequelize').models.session;
 
 module.exports.login = new googleStrategy({
-    clientID: config.clientID,
-    clientSecret: config.clientSecret,
-    callbackURL: "http://localhost/authorization/login/google/callback",
+    clientID: config.passport.google.clientID,
+    clientSecret: config.passport.google.clientSecret,
+    callbackURL: "http://" + config.server.adress + "/authorization/login/google/callback",
     passReqToCallback: true
 },
     function (req, accessToken, refreshToken, profile, done) {
+        console.log(profile);
         User.findOne({
             where: {
                 googleId: profile.id
@@ -37,9 +38,9 @@ module.exports.login = new googleStrategy({
 );
 
 module.exports.connect = new googleStrategy({
-    clientID: config.clientID,
-    clientSecret: config.clientSecret,
-    callbackURL: "http://localhost/panel/account/connect/google/callback",
+    clientID: config.passport.google.clientID,
+    clientSecret: config.passport.google.clientSecret,
+    callbackURL: "http://" + config.server.adress + "/panel/account/connect/google/callback",
     passReqToCallback: true
 },
     function (req, accessToken, refreshToken, profile, done) {
@@ -52,7 +53,8 @@ module.exports.connect = new googleStrategy({
                 return done(null, req.user, req.flash('error', 'Konto jest już w uzyciu'));
             }
             User.update({
-                googleId: profile.id
+                googleId: profile.id,
+                   googleDisplayName: profile.displayName
             }, {
                     where: {
                         id: req.user.id

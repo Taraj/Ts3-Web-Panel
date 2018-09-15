@@ -1,18 +1,21 @@
 ﻿'use strict';
 const facebookStrategy = require('passport-facebook').Strategy;
-const config = require('../../config').passport.facebook;
+const config = require('../../config');
 
 
 const User = require('../../sequelize').models.user;
 const Session = require('../../sequelize').models.session;
 
+
+
 module.exports.login = new facebookStrategy({
-    clientID: config.clientID,
-    clientSecret: config.clientSecret,
-    callbackURL: "http://localhost/authorization/login/facebook/callback",
+    clientID: config.passport.facebook.clientID,
+    clientSecret: config.passport.facebook.clientSecret,
+    callbackURL: "http://" + config.server.adress + "/authorization/login/facebook/callback",
     passReqToCallback: true
 },
     function (req, accessToken, refreshToken, profile, done) {
+        console.log(profile);
         User.findOne({
             where: {
                 facebookId: profile.id
@@ -37,9 +40,9 @@ module.exports.login = new facebookStrategy({
 );
 
 module.exports.connect = new facebookStrategy({
-    clientID: config.clientID,
-    clientSecret: config.clientSecret,
-    callbackURL: "http://localhost/panel/account/connect/facebook/callback",
+    clientID: config.passport.facebook.clientID,
+    clientSecret: config.passport.facebook.clientSecret,
+    callbackURL: "http://" + config.server.adress + "/panel/account/connect/facebook/callback",
     passReqToCallback: true
 },
     function (req, accessToken, refreshToken, profile, done) {
@@ -52,7 +55,8 @@ module.exports.connect = new facebookStrategy({
                 return done(null, req.user, req.flash('error', 'Konto jest już w uzyciu'));
             }
             User.update({
-                facebookId: profile.id
+                facebookId: profile.id,
+                facebookDisplayName:profile.displayName
             }, {
                     where: {
                         id: req.user.id

@@ -60,6 +60,9 @@
     <Compile Include="models\user.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\javascript\account.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\javascript\home.js">
       <SubType>Code</SubType>
     </Compile>
@@ -110,6 +113,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\stylesheet\main.less">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheet\panel.less">
       <SubType>Code</SubType>
     </Content>
     <Content Include="README.md" />

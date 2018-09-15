@@ -2,6 +2,64 @@
 html
     head
         include includes/head.pug
+        link(rel="stylesheet" type="text/css" href="/stylesheet/panel.css")
     body
         include includes/body.pug
-        h1 Konto
+        main
+            nav.menu-right#menuRight
+                div.button#menuRightButton Menu
+                a(href="/panel") Start
+                a(href="/panel/account") Konto
+                a(href="/panel") Rangi
+                a(href="/panel") Kanał
+                a(href="/panel") Zgłoszenia
+            div.container
+                div.frame
+                    header Logowanie
+                    div.content.authorization
+                       ul
+                        li Google - 
+                            if google
+                                i= google
+                            else
+                                a(href="/panel/account/connect/google") Połącz
+                        li Facebook - 
+                            if facebook
+                                i= facebook
+                            else
+                                a(href="/panel/account/connect/facebook") Połącz
+                div.frame
+                    header Zmień Hasło
+                    div.content.change-password
+                        form
+                        input(type="password" placeholder="Aktualne hasło")
+                        input(type="password" placeholder="Nowe hasło")
+                        input(type="password" placeholder="Powtórz hasło")
+                        button Zmień
+                div.frame
+                    header Konta Team Speak 3
+                    div.content.connect-teamspeak
+                        table
+                            tr
+                                th Nick
+                                th Uid
+                                th.short Odłącz
+                            tr
+                                td Taraj
+                                td zkgt+7ot889/7GRg3RKHYaYSBLE=
+                                td
+                                    button.danger Odłącz
+                            tr
+                                td Taraj
+                                td zkgt+7ot889/7GRg3RKHYaYSBLE=
+                                td
+                                    button.danger Odłącz
+                            tr
+                                td Taraj
+                                td zkgt+7ot889/7GRg3RKHYaYSBLE=
+                                td
+                                    button.danger Odłącz
+                        form
+                            select
+                                option Taraj (zkgt+7ot889/7GRg3RKHYaYSBLE=)
+                            button.button Dodaj
